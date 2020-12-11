@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<style>
+    .canvas {
+        width: 400px;
+        height: 200px;
+        max-width: 100%;
+    }
+
+    .prediction {
+        margin-top: 30px;
+    }
+
+    footer {
+        font-size: 13px;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flask & fastai Image Classifier</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Flask & fastai Image Classifier</a>
+    </div>
+</nav>
+<div class="container my-4">
+    <h2 class="text-primary my-4">Select a file to upload</h2>
+    <form method="post" action="/" enctype="multipart/form-data">
+        <p>
+            <input class="form-control" type="file" multiple="false" accept="image/*" name="image"
+                   autocomplete="off" required>
+        </p>
+        <p>
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </p>
+    </form>
+    <div class="prediction">
+        <p>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    This is a <b>{{ messages[0] }}</b>
+                {% endif %}
+            {% endwith %}
+        </p>
+        <div class="canvas">
+            <img src="{{ url_for('send_file', filename=image_file_name) }}" class="img-fluid" alt="">
+        </div>
+    </div>
+</div>
+</body>
+<!-- Footer -->
+<footer class="fixed-bottom font-small bg-dark footer-dark">
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3"><span class="text-light">© 2020 Copyright: Big Data Team 9</span>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+</html>
